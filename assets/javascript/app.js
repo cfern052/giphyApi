@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
 var movies = ["Star Wars","The Terminator","The Matrix","Brazil","Bill and Ted","Annihilation"];
 for(var i=0;i<movies.length;i++){
     var movieTitle=movies[i];
@@ -16,13 +15,14 @@ for(var i=0;i<movies.length;i++){
 $("button").on("click", function() {
     var title = $(this).attr(movieTitle);
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-      movieTitle + "&api_key=dc6zaTOxFJmzC&limit=10";
+      title + "&api_key=u2AOZsmlHlP5hXjazamB9Ew0scser5VW&limit=10";
 
     $.ajax({
       url: queryURL,
       method: "GET"
     })
       .then(function(response) {
+          console.log(response);
         var results = response.data;
 
         for (var i = 0; i < results.length; i++) {
@@ -38,7 +38,7 @@ $("button").on("click", function() {
           gifDiv.prepend(p);
           gifDiv.prepend(movieImage);
 
-          $("#gifs").prepend(gifDiv);
+          $("#gif").prepend(gifDiv);
         }
       });
   });
