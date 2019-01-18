@@ -68,6 +68,7 @@ $(document).on("click", ".movie", function () {
         gifDiv.prepend(movieImage);
 
         $("#gif").prepend(gifDiv);
+        
       }
     
 

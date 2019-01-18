@@ -2,13 +2,15 @@
 <html>
 
 <head>
-    <title>Giftastic!</title>
+    <title>Gif-ilms!</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
 <body>
+
+    <h1><strong>Click below to see ten gifs from these films!</strong></h1>
     <div id=buttons></div>
     <br>
 
@@ -17,15 +19,18 @@
             Enter Movie Title:<input id="title" type="text"><button class="btn btn-default submit"  type="submit">Submit</button>
         </form>
     </div> -->
-    <form id="movie-form">
-            <label for="movie-input">Enter Movie Title Here</label>
+    <div id=movie-form>
+        <form id="movie-form">
+            <label for="movie-input">Enter movie title here to add a button</label>
             <input type="text" id="movie-input">
             <br>
-      
+
             <!-- Button triggers new movie to be added -->
             <input id="add-movie" type="submit" value="Submit film name">
-          </form>
-
+        </form>
+    </div>
+    <br>
+    <h4><strong>Click a gif to play, click again to pause!</strong></h4>
     <br>
     <div id=gif></div>
 
