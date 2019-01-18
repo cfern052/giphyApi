@@ -2,29 +2,29 @@
 var movies = ["They Live", "2001: A Space Odessy", "The Holy Mountain", "City of God", "Bill and Ted", "The Big Lebowski"];
 
 
-  // event.preventDefault();
-
-  
+// event.preventDefault();
 
 
-  function showButtons() {
 
-    $("#buttons").empty();
 
-    for (var i = 0; i < movies.length; i++) {
-      var movieTitle = movies[i];
-      var movieButton = $('<button>');
+function showButtons() {
 
-      movieButton.addClass("movie")
+  $("#buttons").empty();
 
-      movieButton.attr("data-name", movies[i]);
+  for (var i = 0; i < movies.length; i++) {
+    var movieTitle = movies[i];
+    var movieButton = $('<button>');
 
-      movieButton.text(movies[i]);
+    movieButton.addClass("movie");
 
-      $('#buttons').append(movieButton);
-    }
-  };
-  showButtons();
+    movieButton.attr("data-name", movies[i]);
+    
+    movieButton.text(movies[i]);
+
+    $('#buttons').append(movieButton);
+  }
+};
+showButtons();
 
 
 //make for loop that goes through each name
@@ -57,15 +57,36 @@ $(document).on("click", ".movie", function () {
         var p = $("<p>").text("Rating: " + rating);
 
         var movieImage = $("<img>");
-        movieImage.attr("src", results[i].images.fixed_height.url);
+
+      movieImage.addClass("img")
+        movieImage.attr("src", results[i].images.fixed_height_still.url);
+        movieImage.attr('data-animate', results[i].images.fixed_height.url);
+        movieImage.attr('data-still', results[i].images.fixed_height_still.url);
+        movieImage.attr('data-state', 'still');
 
         gifDiv.prepend(p);
         gifDiv.prepend(movieImage);
 
         $("#gif").prepend(gifDiv);
       }
+    
+
+    $(".img").on('click', function () {
+
+      var state = $(this).attr('data-state');
+      console.log(state);
+    
+      if (state == 'still') {
+        $(this).attr('src', $(this).data('animate'));
+        $(this).attr('data-state', 'animate');
+      } else {
+        $(this).attr('src', $(this).data('still'));
+        $(this).attr('data-state', 'still');
+      }
+    })
     });
 });
+
 
 $(document).on("click", "#add-movie", function (event) {
   event.preventDefault();
@@ -76,15 +97,12 @@ $(document).on("click", "#add-movie", function (event) {
 
 
   movies.push(movie);
-  // if(movie==movies){
-  //   return false;
-  // }
-  // else{
-  //   movies.push(movie);
-  // }
+
 
   showButtons();
 });
+
+
 
 
 
