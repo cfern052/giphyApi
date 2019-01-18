@@ -1,47 +1,90 @@
-$(document).ready(function(){
-var movies = ["Star Wars","The Terminator","The Matrix","Brazil","Bill and Ted","Annihilation"];
-for(var i=0;i<movies.length;i++){
-    var movieTitle=movies[i];
-    var movieButton= $('<button>');
-    movieButton.attr(movies[i]);
-    movieButton.text(movies[i]);
-    $('#buttons').append(movieButton);
-}
+
+var movies = ["They Live", "2001: A Space Odessy", "The Holy Mountain", "City of God", "Bill and Ted", "The Big Lebowski"];
+
+
+  // event.preventDefault();
+
+  
+
+
+  function showButtons() {
+
+    $("#buttons").empty();
+
+    for (var i = 0; i < movies.length; i++) {
+      var movieTitle = movies[i];
+      var movieButton = $('<button>');
+
+      movieButton.addClass("movie")
+
+      movieButton.attr("data-name", movies[i]);
+
+      movieButton.text(movies[i]);
+
+      $('#buttons').append(movieButton);
+    }
+  };
+  showButtons();
+
+
 //make for loop that goes through each name
 //have movies[i]=movieTitle
 //button.attr(movieTitles)
 //put movieTitle in urlquery
 
-$("button").on("click", function() {
-    var title = $(this).attr(movieTitle);
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-      title + "&api_key=u2AOZsmlHlP5hXjazamB9Ew0scser5VW&limit=10";
+$(document).on("click", ".movie", function () {
 
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    })
-      .then(function(response) {
-          console.log(response);
-        var results = response.data;
+  event.preventDefault();
 
-        for (var i = 0; i < results.length; i++) {
-          var gifDiv = $("<div>");
+  var title = $(this).attr("data-name");
+  console.log(this);
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+    title + "&api_key=u2AOZsmlHlP5hXjazamB9Ew0scser5VW&limit=10";
 
-          var rating = results[i].rating;
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  })
+    .then(function (response) {
+      console.log(response);
+      var results = response.data;
 
-          var p = $("<p>").text("Rating: " + rating);
+      for (var i = 0; i < results.length; i++) {
+        var gifDiv = $("<div>");
 
-          var movieImage = $("<img>");
-          movieImage.attr("src", results[i].images.fixed_height.url);
+        var rating = results[i].rating;
 
-          gifDiv.prepend(p);
-          gifDiv.prepend(movieImage);
+        var p = $("<p>").text("Rating: " + rating);
 
-          $("#gif").prepend(gifDiv);
-        }
-      });
-  });
+        var movieImage = $("<img>");
+        movieImage.attr("src", results[i].images.fixed_height.url);
+
+        gifDiv.prepend(p);
+        gifDiv.prepend(movieImage);
+
+        $("#gif").prepend(gifDiv);
+      }
+    });
+});
+
+$(document).on("click", "#add-movie", function (event) {
+  event.preventDefault();
+
+  // $("#buttons").empty();
+
+  var movie = $("#movie-input").val().trim();
 
 
-})
+  movies.push(movie);
+  // if(movie==movies){
+  //   return false;
+  // }
+  // else{
+  //   movies.push(movie);
+  // }
+
+  showButtons();
+});
+
+
+
